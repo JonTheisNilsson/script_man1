@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 echo sanitycheck
+# /usr/lib/systemd/user/
 
 #https://mywiki.wooledge.org/BashFAQ/001
 
