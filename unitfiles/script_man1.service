@@ -1,0 +1,6 @@
+[Unit]
+Description=script man1
+
+[Service]
+Type=oneshot
+ExecStart=path to script_man1.sh
