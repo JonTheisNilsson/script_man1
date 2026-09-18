@@ -29,6 +29,6 @@ while IFS= read -r line || [[ -n "$line" ]]; do
             curl -Isf --max-time 5 "$line" >/dev/null
             echo "$timestamp - $line - $?" >> script_man.log
         else
-            echo "$timestamp - $line - address not valid" >> log.test
+            echo "$timestamp - $line - address not valid" >> script_man.log
     fi
 done < $file
