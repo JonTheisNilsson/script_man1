@@ -4,9 +4,9 @@
 
 # curl -Isf google.com >/dev/null
 # I for headers
-# s for silent
+# s for silent, kan nok fjernes da vi redirecter til dev/null
 # f for fail (se også --fail-with-body)
-# IFS kan nok fjernes https://mywiki.wooledge.org/IFS
+# IFS kan nok fjernes https://mywiki.wooledge.org/IFS - er fjernet
 #  =~  regular expression match
 
 # || [[ -n "$line" ]] - https://stackoverflow.com/questions/10929453/read-a-file-line-by-line-assigning-the-value-to-a-variable

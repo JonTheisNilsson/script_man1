@@ -6,7 +6,7 @@ echo sanitycheck #TODO: fjernes inden aflevering
 file="targets.list"
 log="script_man.log"
 
-# regex fra ai. behøver kun at forstå 
+# regex fra ai. behøver kun at forstå at regexen sikre at de adresser vi monitore er skrevet korrekt. ellers kan curl buggy ud og forhindre vores script i at forsætte.
 domain_regex='^(https?://)?[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)+(:[0-9]{1,5})?([/?#][^[:space:]]*)?$'
 ipv4_regex='^(https?://)?((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])\.){3}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])(:[0-9]{1,5})?([/?#][^[:space:]]*)?$'
 localhost_regex='^(https?://)?localhost(:[0-9]{1,5})?([/?#][^[:space:]]*)?$'
@@ -22,7 +22,7 @@ while read -r line || [[ -n "$line" ]]; do
         continue
     fi
 
-    curl -Isf --max-time 5 "$line" >/dev/null # da vi ikke er interresseret i selve respond, kassere vi den.
+    curl -Isf --max-time 5 "$line" >/dev/null # da vi ikke er interresseret i selve response, kassere vi den.
     if [ $? -eq 0 ]; then # ? er den sidste exit code. hvis den er nul, er den sidste kommando "succesfuld".
         echo "$timestamp - $line - UP" >> $log
     else
