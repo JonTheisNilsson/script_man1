@@ -19,17 +19,24 @@ echo sanitycheck
 # $? sidste exit code. bruger exit codes til at se om der er hul igennem. 0 er kommando udført succesfuldt. 
 # alt andet betyder noget "gik galt".  med -f sender curl ikke 0 på 400 og 500 statuskoder. 
 
-file="target.list"
+file="targets.list"
 # regex fra ai
-regex='^(https?://)?[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)+(:[0-9]{1,5})?([/?#][^[:space:]]*)?$'
+domain_regex='^(https?://)?[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)+(:[0-9]{1,5})?([/?#][^[:space:]]*)?$'
+ipv4_regex='^(https?://)?((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])\.){3}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])(:[0-9]{1,5})?([/?#][^[:space:]]*)?$'
+localhost_regex='^(https?://)?localhost(:[0-9]{1,5})?([/?#][^[:space:]]*)?$'
 
 while IFS= read -r line || [[ -n "$line" ]]; do
     timestamp=$(date +"%Y-%m-%d %H:%M:%S")
-    if [[ $line =~ $regex ]]
-        then 
-            curl -Isf --max-time 5 "$line" >/dev/null
-            echo "$timestamp - $line - $?" >> script_man.log
+    if [[ "$line" =~ $domain_regex ]] ||
+       [[ "$line" =~ $ipv4_regex ]] ||
+       [[ "$line" =~ $localhost_regex ]]; then
+        curl -Isf --max-time 5 "$line" >/dev/null
+        if [ $? -eq 0 ]; then
+            echo "$timestamp - $line - UP" >> script_man.log
         else
-            echo "$timestamp - $line - target not valid" >> script_man.log
+            echo "$timestamp - $line - DOWN" >> script_man.log
+        fi
+    else
+        echo "$timestamp - $line - address not valid" >> script_man.log
     fi
 done < $file
