@@ -13,31 +13,32 @@ localhost_regex='^(https?://)?localhost(:[0-9]{1,5})?([/?#][^[:space:]]*)?$'
 port_regex='^(https?://)?([^/:]+):([0-9]{1,5})$'
 
 while read -r line || [[ -n "$line" ]]; do
-    timestamp=$(date +"%Y-%m-%d %H:%M:%S") #TODO: til ISO
-    
-    # checker først om target er valid, så curl ikke stopper på forkert indput. f.eks curl 1.
+    timestamp=$(date +"%Y-%m-%d %H:%M:%S")
+
     if ! ([[ "$line" =~ $domain_regex ]] ||
           [[ "$line" =~ $ipv4_regex ]] ||
-          [[ "$line" =~ $localhost_regex ]]) ; then
-        echo "$timestamp - $line - address not valid" >> $log
+          [[ "$line" =~ $localhost_regex ]]); then
+        echo "$timestamp - $line - address not valid" >> "$log"
         continue
     fi
 
-    if [[ "$line" =~ $port_regex ]]; then #Hvis target indeholder et port nummer bruger vi netcat
+    # If target contains a port, use nc for a TCP connectivity check
+    if [[ "$line" =~ ^(https?://)?([^/:]+):([0-9]{1,5})$ ]]; then
         host="${BASH_REMATCH[2]}"
         port="${BASH_REMATCH[3]}"
 
-        nc -z -w 3 "$host" "$port" >/dev/null 2>&1 # z scanner uden at sende data, w er timeout i sek
-        result="$?"
+        nc -z -w 3 "$host" "$port" >/dev/null 2>&1
+        result=$?
     else
-        curl -Isf --max-time 3 "$line" >/dev/null 2>&1 # da vi ikke er interresseret i selve response, kassere vi den.
-        result="$?"
+        # Otherwise use curl for HTTP/HTTPS
+        curl -Isf --max-time 3 "$line" >/dev/null 2>&1
+        result=$?
     fi
 
-    if [ "$result" -eq 0 ]; then # ? er den sidste exit code. hvis den er nul, er den sidste kommando "succesfuld".
-        echo "$timestamp - $line - UP" >> $log
+    if [ "$result" -eq 0 ]; then
+        echo "$timestamp - $line - UP" >> "$log"
     else
-        echo "$timestamp - $line - DOWN" >> $log
+        echo "$timestamp - $line - DOWN" >> "$log"
     fi
 
-done < $file
+done < "$file"
