@@ -1,0 +1,12 @@
+2026-09-20 12:14:36 - google.com - UP
+2026-09-20 12:14:36 - dr.dk - UP
+2026-09-20 12:14:36 - 1 - address not valid
+2026-09-20 12:14:36 - asdsad.asd - DOWN
+2026-09-20 12:14:36 - https://httpstat.us - DOWN
+2026-09-20 12:14:41 - google.com:80 - UP
+2026-09-20 12:14:42 - google.com:443 - DOWN
+2026-09-20 12:14:42 - https://the-internet.herokuapp.com/status_codes/200 - UP
+2026-09-20 12:14:42 - https://the-internet.herokuapp.com/status_codes/301 - UP
+2026-09-20 12:14:43 - https://the-internet.herokuapp.com/status_codes/404 - DOWN
+2026-09-20 12:14:43 - https://the-internet.herokuapp.com/status_codes/500 - DOWN
+2026-09-20 12:14:43 - localhost:631 - UP

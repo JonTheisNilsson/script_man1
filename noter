@@ -18,6 +18,32 @@
 
 
 
+## Unit-filer
+Vi bruger systemd til at håndtere hvornår scriptet skal køre. Det gør vi med en .service-fil og en .timer-fil.
+
+## Hvorfor bruger vi systemd istedet for cron?
+
+
+## Exit codes og curl
+Vi bruger curl til at se om der er forbindelse
+Vi tlgår den sidste exit code med $? som er fra vores curl kald. Hvis det har været en succes er exit coden 0, alt andet er usuccesfuldt. Curl giver normalt også exit code 0 på 400+ http status koder, med med flaget -f, bliver de også til usuccesfuldt
+
+## Validering af targets
+Hvis man kører curl, med en ugyldig url kan det få programmet til at "freeze", så vi validere alle targets i config-filen med et par regex. Vi generede regex'erne med ai. 
+
+
+## Log
+standard iso timestamp
+
+## Placeringer af filerne
+script:
+unitfiler:
+config:
+log:
+
+
+
+
 
 ----
 
