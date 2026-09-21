@@ -37,6 +37,7 @@ Vi kunne nok skifte over til at bruge netcat til det hele (og det ville nok vær
 
 ## Gåseønjne og regex
 Hvornår skal man bruge citationstegn om variabler. Det ledte til en del problemer.
+## $var vs "$var" i regex
 
 
 ## Log
