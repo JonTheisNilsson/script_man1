@@ -10,3 +10,16 @@
 2026-09-20 12:14:43 - https://the-internet.herokuapp.com/status_codes/404 - DOWN
 2026-09-20 12:14:43 - https://the-internet.herokuapp.com/status_codes/500 - DOWN
 2026-09-20 12:14:43 - localhost:631 - UP
+2026-09-21 12:00:28 - google.com - UP
+2026-09-21 12:00:28 - dr.dk - UP
+2026-09-21 12:00:28 - 1 - address not valid
+2026-09-21 12:00:28 - asdsad.asd - DOWN
+2026-09-21 12:00:28 - https://httpstat.us - DOWN
+2026-09-21 12:00:33 - google.com:80 - UP
+2026-09-21 12:00:33 - google.com:443 - DOWN
+2026-09-21 12:00:33 - https://the-internet.herokuapp.com/status_codes/200 - UP
+2026-09-21 12:00:34 - https://the-internet.herokuapp.com/status_codes/301 - UP
+2026-09-21 12:00:34 - https://the-internet.herokuapp.com/status_codes/404 - DOWN
+2026-09-21 12:00:35 - https://the-internet.herokuapp.com/status_codes/500 - DOWN
+2026-09-21 12:00:35 - localhost:631 - UP
+2026-09-21 12:00:35 - 0.0.0.0:22 - DOWN

@@ -10,6 +10,7 @@ log="script_man.log"
 domain_regex='^(https?://)?[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)+(:[0-9]{1,5})?([/?#][^[:space:]]*)?$'
 ipv4_regex='^(https?://)?((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])\.){3}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])(:[0-9]{1,5})?([/?#][^[:space:]]*)?$'
 localhost_regex='^(https?://)?localhost(:[0-9]{1,5})?([/?#][^[:space:]]*)?$'
+port_regex='^(https?://)?([^/:]+):([0-9]{1,5})$'
 
 while read -r line || [[ -n "$line" ]]; do
     timestamp=$(date +"%Y-%m-%d %H:%M:%S") #TODO: til ISO
@@ -22,7 +23,15 @@ while read -r line || [[ -n "$line" ]]; do
         continue
     fi
 
-    curl -Isf --max-time 5 "$line" >/dev/null # da vi ikke er interresseret i selve response, kassere vi den.
+    if [[ $line =~ $port_regex ]]; then #Hvis target indeholder et port nummer bruger vi netcat
+        host=${BASH_REMATCH[2]}
+        port=${BASH_REMATH[3]}
+
+        nc -z -w 5 $host $port # z scanner uden at sende data, w er timeout i sek
+    else
+        curl -Isf --max-time 5 "$line" >/dev/null # da vi ikke er interresseret i selve response, kassere vi den.
+    fi
+
     if [ $? -eq 0 ]; then # ? er den sidste exit code. hvis den er nul, er den sidste kommando "succesfuld".
         echo "$timestamp - $line - UP" >> $log
     else
