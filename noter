@@ -31,6 +31,8 @@ Vi tlgår den sidste exit code med $? som er fra vores curl kald. Hvis det har v
 ## Validering af targets
 Hvis man kører curl, med en ugyldig url kan det få programmet til at "freeze", så vi validere alle targets i config-filen med et par regex. Vi generede regex'erne med ai. 
 
+## $var vs "$var" i regex
+
 
 ## Log
 standard iso timestamp
