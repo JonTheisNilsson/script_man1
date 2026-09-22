@@ -28,13 +28,13 @@ while read -r line || [[ -n "$line" ]]; do
         port="${BASH_REMATCH[3]}"
 
         nc -z -w 3 "$host" "$port" >/dev/null 2>&1 # z scanner uden at sende data, w er timeout i sek
-        result="$?"
+        result=$?
     else
         curl -Isf --max-time 3 "$line" >/dev/null 2>&1 # da vi ikke er interresseret i selve response, kassere vi den.
-        result="$?"
+        result=$?
     fi
 
-    if [ "$result" -eq 0 ]; then # ? er den sidste exit code. hvis den er nul, er den sidste kommando "succesfuld".
+    if [ $result -eq 0 ]; then # ? er den sidste exit code. hvis den er nul, er den sidste kommando "succesfuld".
         echo "$timestamp - $line - UP" >> $log
     else
         echo "$timestamp - $line - DOWN" >> $log

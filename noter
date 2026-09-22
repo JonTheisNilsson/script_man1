@@ -26,10 +26,17 @@ Vi bruger systemd til at håndtere hvornår scriptet skal køre. Det gør vi med
 
 ## Exit codes og curl
 Vi bruger curl til at se om der er forbindelse
-Vi tlgår den sidste exit code med $? som er fra vores curl kald. Hvis det har været en succes er exit coden 0, alt andet er usuccesfuldt. Curl giver normalt også exit code 0 på 400+ http status koder, med med flaget -f, bliver de også til usuccesfuldt
+Vi tlgår den sidste exit code med $? som er fra vores curl og nc kald. Hvis det har været en succes er exit coden 0, alt andet er usuccesfuldt. Curl giver normalt også exit code 0 på 400+ http status koder, med med flaget -f, bliver de også til usuccesfuldt
 
 ## Validering af targets
 Hvis man kører curl, med en ugyldig url kan det få programmet til at "freeze", så vi validere alle targets i config-filen med et par regex. Vi generede regex'erne med ai. 
+
+## Curl vs netcat
+Vi startede med at bruge curl, men fandt i vores tests at det ikke virkede med alle porte, og nok ville kræve en del manuel tinkering. Så vi tilføjede en regex der matcher hvis target indeholde en port. I så fald bliver den sendt til netcat i stedet for curl.
+Vi kunne nok skifte over til at bruge netcat til det hele (og det ville nok være hurtigere), men vi har valgt at beholde curl-delen, så vi har to eksempler på hvordan man ville kunne løse problemet.
+
+## Gåseønjne og regex
+Hvornår skal man bruge citationstegn om variabler. Det ledte til en del problemer.
 
 
 ## Log
