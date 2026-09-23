@@ -1,7 +1,7 @@
 [Unit]
-Description=script man1
+Description=script mandatory 1
 
 [Service]
 Type=oneshot
-ExecStart=path to script_man1.sh
+ExecStart= /usr/local/bin/script_man.sh
 Restart=on-failure

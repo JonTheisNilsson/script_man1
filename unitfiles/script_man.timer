@@ -1,10 +1,10 @@
 [Unit]
-Description=script man1 timer
+Description=script man timer
 
 [Timer]
 OnBootSec=5min
-OnUnitActiveSec=1h
-Unit=script_man1.service
+OnUnitActiveSec=1min
+Unit=script_man.service
 
 [Install]
 WantedBy=timers.target

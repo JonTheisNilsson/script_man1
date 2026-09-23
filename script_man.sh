@@ -1,10 +1,7 @@
 #!/usr/bin/env bash
 
-echo sanitycheck #TODO: fjernes inden aflevering
-
-#TODO: skal hentes fra en config eller lign
-file="targets.list"
-log="script_man.log"
+file="/etc/script_man/targets.list"
+log="/var/log/script_man/script_man.log"
 
 # regex fra ai. behøver kun at forstå at regexen sikre at de adresser vi monitore er skrevet korrekt. ellers kan curl buggy ud og forhindre vores script i at forsætte.
 domain_regex='^(https?://)?[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)+(:[0-9]{1,5})?([/?#][^[:space:]]*)?$'
@@ -34,7 +31,7 @@ while read -r line || [[ -n "$line" ]]; do
         result=$?
     fi
 
-    if [ $result -eq 0 ]; then # ? er den sidste exit code. hvis den er nul, er den sidste kommando "succesfuld".
+    if [ $result -eq 0 ]; then 
         echo "$timestamp - $line - UP" >> $log
     else
         echo "$timestamp - $line - DOWN" >> $log
